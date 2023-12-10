@@ -26,8 +26,8 @@ dynamic = ["version"]
 "lazy_ci" = "lazy_ci.main:main"
 
 [project.urls]
-"Issue Tracker" = "https://github.com/calvinloveland/operationalize/issues"
-"Repository" = "https://github.com/calvinloveland/operationalize"
+"Issue Tracker" = "https://github.com/calvinloveland/lazy_ci/issues"
+"Repository" = "https://github.com/calvinloveland/lazy_ci"
 
 [tool.hatch.version]
 path = "src/lazy_ci/__about__.py"
