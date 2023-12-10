@@ -8,6 +8,8 @@ def main():
 
     issues_found = False
     # Check if pytest passed
+    if result.returncode == 5:
+        print("No tests found!")
     if result.returncode != 0:
         print("Tests failed!")
         issues_found = True
