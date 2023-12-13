@@ -19,7 +19,8 @@ dependencies = [
 "loguru",
 "GitPython",
 "prospector",
-"black"]
+"black",
+"bump-my-version"]
 dynamic = ["version"]
 
 [project.scripts]

@@ -1,33 +1,25 @@
-import subprocess
+from lazy_ci.code_quality import run_code_quality
+from lazy_ci.ship import ship
 import sys
 
 
 def main():
-    # Run pytest
-    result = subprocess.run(["pytest", "-v"], check=False)
-
-    issues_found = False
-    # Check if pytest passed
-    if result.returncode == 5:
-        print("No tests found!")
-    elif result.returncode != 0:
-        print("Tests failed!")
-        issues_found = True
-
-    # Run prospector
-    result = subprocess.run(["prospector", "--ignore-paths", "test/"], check=False)
-    if result.returncode != 0:
-        print("Prospector found issues!")
-        issues_found = True
-
-    # Run black
-    result = subprocess.run(["black", "--check", "."], check=False)
-    if result.returncode != 0:
-        print("Black found formatting issues!")
-        issues_found = True
-
-    if issues_found:
-        sys.exit(1)
+    if len(sys.argv) == 1:
+        print("No command provided, running code quality checks as default")
+        if not run_code_quality():
+            sys.exit(1)
+    elif sys.argv[1] == "code-quality":
+        print("Running code quality checks")
+        if not run_code_quality():
+            sys.exit(1)
+    elif sys.argv[1] == "ship":
+        print("Shipping code!")
+        if not run_code_quality():
+            print("Code quality checks failed, not shipping code!!!")
+            sys.exit(1)
+        else:
+            if not ship():
+                sys.exit(1)
 
 
 if __name__ == "__main__":
