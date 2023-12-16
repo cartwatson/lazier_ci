@@ -14,9 +14,7 @@ def run_code_quality():
         issues_found = True
 
     # Run prospector
-    result = subprocess.run(
-        ["prospector", "--ignore-paths", "test/", "--enable=similarities"], check=False
-    )
+    result = subprocess.run(["prospector", "--ignore-paths", "test/"], check=False)
     if result.returncode != 0:
         print("Prospector found issues!")
         issues_found = True
