@@ -10,9 +10,11 @@ def tag(version):
     repo.remotes.origin.push(version)
     return True
 
+
 def is_file_git_ignored(file):
     repo = git.Repo.init(".")
     return file in repo.ignored(file)
+
 
 def bump_version(tag=True):
     # Run bump-my-version
@@ -42,7 +44,7 @@ def bump_version(tag=True):
         print("Could not find a version file!")
         return False
     # Read the version file
-    print("Found version file at {}".format(version_file))
+    print(f"Found version file at {version_file}")
     with open(version_file, "r", encoding="utf-8") as f:
         version_contents = f.read()
     # Increment the version
@@ -66,7 +68,7 @@ def bump_version(tag=True):
     version_parts = version.split(".")
     version_parts[-1] = str(int(version_parts[-1]) + 1)
     new_version = ".".join(version_parts)
-    print("Bumping version from {} to {}".format(version, new_version))
+    print(f"Bumping version from {version} to {new_version}")
     # Write the version file
     with open(version_file, "w", encoding="utf-8") as f:
         f.write(version_contents.replace(version, new_version))

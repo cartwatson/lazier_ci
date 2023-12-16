@@ -3,7 +3,7 @@ import subprocess
 
 def run_code_quality():
     # Run pytest
-    result = subprocess.run(["pytest", "-v","--enable=similarities"], check=False)
+    result = subprocess.run(["pytest", "-v"], check=False)
 
     issues_found = False
     # Check if pytest passed
@@ -14,7 +14,9 @@ def run_code_quality():
         issues_found = True
 
     # Run prospector
-    result = subprocess.run(["prospector", "--ignore-paths", "test/"], check=False)
+    result = subprocess.run(
+        ["prospector", "--ignore-paths", "test/", "--enable=similarities"], check=False
+    )
     if result.returncode != 0:
         print("Prospector found issues!")
         issues_found = True
