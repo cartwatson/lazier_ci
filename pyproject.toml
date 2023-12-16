@@ -25,6 +25,8 @@ dynamic = ["version"]
 
 [project.scripts]
 "lazy_ci" = "lazy_ci.main:main"
+"lazyci" = "lazy_ci.main:main"
+"lazy-ci" = "lazy_ci.main:main"
 
 [project.urls]
 "Issue Tracker" = "https://github.com/calvinloveland/lazy_ci/issues"

@@ -1,8 +1,20 @@
 import subprocess
 import os
+import git
 
 
-def bump_version():
+def tag(version):
+    # Create a git tag
+    repo = git.Repo.init(".")
+    repo.create_tag(version)
+    repo.remotes.origin.push(version)
+    return True
+
+def is_file_git_ignored(file):
+    repo = git.Repo.init(".")
+    return file in repo.ignored(file)
+
+def bump_version(tag=True):
     # Run bump-my-version
     result = subprocess.run(["bump-my-version", "bump"], check=False)
     if result.returncode == 0:
@@ -20,13 +32,17 @@ def bump_version():
     ]
     for root, _dirs, files in os.walk("."):
         for file in files:
+            full_path = os.path.join(root, file)
             if file in possible_version_file_names:
-                version_file = os.path.join(root, file)
+                if is_file_git_ignored(full_path):
+                    continue
+                version_file = full_path
                 break
     if version_file is None:
         print("Could not find a version file!")
         return False
     # Read the version file
+    print("Found version file at {}".format(version_file))
     with open(version_file, "r", encoding="utf-8") as f:
         version_contents = f.read()
     # Increment the version
@@ -50,9 +66,12 @@ def bump_version():
     version_parts = version.split(".")
     version_parts[-1] = str(int(version_parts[-1]) + 1)
     new_version = ".".join(version_parts)
+    print("Bumping version from {} to {}".format(version, new_version))
     # Write the version file
     with open(version_file, "w", encoding="utf-8") as f:
         f.write(version_contents.replace(version, new_version))
+    if tag:
+        tag(new_version)
     return True
 
 

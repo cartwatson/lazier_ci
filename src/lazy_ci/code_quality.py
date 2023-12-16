@@ -3,7 +3,7 @@ import subprocess
 
 def run_code_quality():
     # Run pytest
-    result = subprocess.run(["pytest", "-v"], check=False)
+    result = subprocess.run(["pytest", "-v","--enable=similarities"], check=False)
 
     issues_found = False
     # Check if pytest passed
