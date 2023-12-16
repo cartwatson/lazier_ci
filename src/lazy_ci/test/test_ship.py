@@ -23,7 +23,7 @@ class TestBumpVersion(unittest.TestCase):
         mock_run.return_value.returncode = 1
         mock_walk.return_value = [(".", [], ["version.py"])]
         with patch("builtins.open", mock_file, create=True):
-            self.assertTrue(ship.bump_version(tag=False))
+            self.assertTrue(ship.bump_version(should_tag=False))
             mock_file().write.assert_called_once_with("1.0.1")
 
 

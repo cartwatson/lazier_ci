@@ -16,7 +16,7 @@ def is_file_git_ignored(file):
     return file in repo.ignored(file)
 
 
-def bump_version(tag=True):
+def bump_version(should_tag=True):
     # Run bump-my-version
     result = subprocess.run(["bump-my-version", "bump"], check=False)
     if result.returncode == 0:
@@ -72,7 +72,7 @@ def bump_version(tag=True):
     # Write the version file
     with open(version_file, "w", encoding="utf-8") as f:
         f.write(version_contents.replace(version, new_version))
-    if tag:
+    if should_tag:
         tag(new_version)
     return True
 
