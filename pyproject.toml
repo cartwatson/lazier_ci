@@ -3,8 +3,8 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "lazy_ci"
-authors = [{ name = "Calvin Loveland", email = "calvin@loveland.dev" }]
+name = "lazier_ci"
+authors = [{ name = "Calvin Loveland", email = "calvin@loveland.dev" }, { name = "Carter Watson", email = "dev@cartwatson.com" }]
 description = "CI for lazy people (like me)"
 readme = "README.md"
 requires-python = ">=3.8"
